@@ -2,12 +2,18 @@
 <html>
   <head>
 
-    <% if current_user %>
+    <% if logged_in? %>
       welcome <%=current_user.user_name%>
-      <%#= link_to "logout" , !!!! %>
+        <form  action="<%=session_url%>" method = "post">
+          <input type= "hidden" name="_method" value="delete">
+          <input type= "submit" value= "logout">
+
+        </form>
     <% else %>
       <p> please log in ! </p>
-      <%= link_to "login", new_user_path %>
+      <%= link_to "login", new_session_path %>
+      <p> OR Make an Account! </p>
+      <%= link_to "register", new_user_url %>
     <% end %>
 
     <title>NinetyNineCats</title>

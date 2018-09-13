@@ -12,15 +12,19 @@ class SessionsController < ApplicationController
       params[:user][:password_digest]
     )
 
-    @user = user.reset_session_token!
-
-    redirect_to "/cats"
+    if @user
+      login!(@user)
+    else
+      flash.now[:errors] << "Invalid Login credentails"
+      render :new
+    end
   end
 
   def destroy
     @user = current_user
     @user.reset_session_token!
     @user.session_token = nil
+    redirect_to cat_url
   end
 
 end

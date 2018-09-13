@@ -20,6 +20,7 @@ class User < ApplicationRecord
     self.password_digest = Bcrypt::Password.create(pw)
   end
 
+
   def is_password?(pw)
     Bcrypt::Password.new(self.password_digest).is_password?(pw)
   end
